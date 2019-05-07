@@ -1,0 +1,169 @@
+{
+    "title": "SqlManagementClient",
+    "description": "The Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/sql-failoverGroups/2015-05-01-preview/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "FailoverGroups_ListByServer": {
+            "main": "./lib/actions/FailoverGroups_ListByServer.js",
+            "title": "Lists the failover groups in a server.",
+            "description": "Lists the failover groups in a server.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_ListByServer.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "FailoverGroups_Delete": {
+            "main": "./lib/actions/FailoverGroups_Delete.js",
+            "title": "Deletes a failover group.",
+            "description": "Deletes a failover group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "FailoverGroups_Get": {
+            "main": "./lib/actions/FailoverGroups_Get.js",
+            "title": "Gets a failover group.",
+            "description": "Gets a failover group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "FailoverGroups_Update": {
+            "main": "./lib/actions/FailoverGroups_Update.js",
+            "title": "Updates a failover group.",
+            "description": "Updates a failover group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "FailoverGroups_CreateOrUpdate": {
+            "main": "./lib/actions/FailoverGroups_CreateOrUpdate.js",
+            "title": "Creates or updates a failover group.",
+            "description": "Creates or updates a failover group.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "FailoverGroups_Failover": {
+            "main": "./lib/actions/FailoverGroups_Failover.js",
+            "title": "Fails over from the current primary server to this server.",
+            "description": "Fails over from the current primary server to this server.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_Failover.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "FailoverGroups_ForceFailoverAllowDataLoss": {
+            "main": "./lib/actions/FailoverGroups_ForceFailoverAllowDataLoss.js",
+            "title": "Fails over from the current primary server to this server. This operation might result in data loss.",
+            "description": "Fails over from the current primary server to this server. This operation might result in data loss.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/FailoverGroups_ForceFailoverAllowDataLoss.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

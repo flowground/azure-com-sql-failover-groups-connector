@@ -1,0 +1,96 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serverName": {
+            "required": true,
+            "type": "string"
+        },
+        "failoverGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "description": "A failover group update request.",
+            "properties": {
+                "properties": {
+                    "description": "Resource properties.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "databases": {
+                            "description": "List of databases in the failover group.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "readOnlyEndpoint": {
+                            "description": "Read-only endpoint of the failover group instance.",
+                            "properties": {
+                                "failoverPolicy": {
+                                    "description": "Failover policy of the read-only endpoint for the failover group.",
+                                    "enum": [
+                                        "Disabled",
+                                        "Enabled"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "ReadOnlyEndpointFailoverPolicy"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "readWriteEndpoint": {
+                            "description": "Read-write endpoint of the failover group instance.",
+                            "properties": {
+                                "failoverPolicy": {
+                                    "description": "Failover policy of the read-write endpoint for the failover group. If failoverPolicy is Automatic then failoverWithDataLossGracePeriodMinutes is required.",
+                                    "enum": [
+                                        "Manual",
+                                        "Automatic"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "ReadWriteEndpointFailoverPolicy"
+                                    }
+                                },
+                                "failoverWithDataLossGracePeriodMinutes": {
+                                    "description": "Grace period before failover with data loss is attempted for the read-write endpoint. If failoverPolicy is Automatic then failoverWithDataLossGracePeriodMinutes is required.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "failoverPolicy"
+                            ],
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "tags": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Resource tags.",
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}

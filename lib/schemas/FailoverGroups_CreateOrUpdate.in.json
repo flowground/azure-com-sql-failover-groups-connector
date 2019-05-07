@@ -1,0 +1,193 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serverName": {
+            "required": true,
+            "type": "string"
+        },
+        "failoverGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "allOf": [
+                        {
+                            "description": "ARM resource.",
+                            "properties": {
+                                "id": {
+                                    "description": "Resource ID.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "description": "Resource name.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "description": "Resource type.",
+                                    "readOnly": true,
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object",
+                            "x-ms-azure-resource": true
+                        }
+                    ],
+                    "description": "ARM proxy resource.",
+                    "properties": {},
+                    "type": "object"
+                }
+            ],
+            "description": "A failover group.",
+            "properties": {
+                "location": {
+                    "description": "Resource location.",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "properties": {
+                    "description": "Resource properties.",
+                    "x-ms-client-flatten": true,
+                    "properties": {
+                        "databases": {
+                            "description": "List of databases in the failover group.",
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "partnerServers": {
+                            "description": "List of partner server information for the failover group.",
+                            "items": {
+                                "description": "Partner server information for the failover group.",
+                                "properties": {
+                                    "id": {
+                                        "description": "Resource identifier of the partner server.",
+                                        "type": "string"
+                                    },
+                                    "location": {
+                                        "description": "Geo location of the partner server.",
+                                        "readOnly": true,
+                                        "type": "string"
+                                    },
+                                    "replicationRole": {
+                                        "description": "Replication role of the partner server.",
+                                        "enum": [
+                                            "Primary",
+                                            "Secondary"
+                                        ],
+                                        "readOnly": true,
+                                        "type": "string",
+                                        "x-ms-enum": {
+                                            "modelAsString": true,
+                                            "name": "FailoverGroupReplicationRole"
+                                        }
+                                    }
+                                },
+                                "required": [
+                                    "id"
+                                ],
+                                "type": "object"
+                            },
+                            "type": "array",
+                            "x-ms-mutability": [
+                                "read",
+                                "create"
+                            ]
+                        },
+                        "readOnlyEndpoint": {
+                            "description": "Read-only endpoint of the failover group instance.",
+                            "properties": {
+                                "failoverPolicy": {
+                                    "description": "Failover policy of the read-only endpoint for the failover group.",
+                                    "enum": [
+                                        "Disabled",
+                                        "Enabled"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "ReadOnlyEndpointFailoverPolicy"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "readWriteEndpoint": {
+                            "description": "Read-write endpoint of the failover group instance.",
+                            "properties": {
+                                "failoverPolicy": {
+                                    "description": "Failover policy of the read-write endpoint for the failover group. If failoverPolicy is Automatic then failoverWithDataLossGracePeriodMinutes is required.",
+                                    "enum": [
+                                        "Manual",
+                                        "Automatic"
+                                    ],
+                                    "type": "string",
+                                    "x-ms-enum": {
+                                        "modelAsString": true,
+                                        "name": "ReadWriteEndpointFailoverPolicy"
+                                    }
+                                },
+                                "failoverWithDataLossGracePeriodMinutes": {
+                                    "description": "Grace period before failover with data loss is attempted for the read-write endpoint. If failoverPolicy is Automatic then failoverWithDataLossGracePeriodMinutes is required.",
+                                    "format": "int32",
+                                    "type": "integer"
+                                }
+                            },
+                            "required": [
+                                "failoverPolicy"
+                            ],
+                            "type": "object"
+                        },
+                        "replicationRole": {
+                            "description": "Local replication role of the failover group instance.",
+                            "enum": [
+                                "Primary",
+                                "Secondary"
+                            ],
+                            "readOnly": true,
+                            "type": "string",
+                            "x-ms-enum": {
+                                "modelAsString": true,
+                                "name": "FailoverGroupReplicationRole"
+                            }
+                        },
+                        "replicationState": {
+                            "description": "Replication state of the failover group instance.",
+                            "readOnly": true,
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "readWriteEndpoint",
+                        "partnerServers"
+                    ],
+                    "type": "object"
+                },
+                "tags": {
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Resource tags.",
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
